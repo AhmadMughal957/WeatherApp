@@ -103,9 +103,11 @@ class Homepage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Obx(() => textediting.medium20(25.0, commonController.weather_location.value.location?.name ??'Search Your Location',
+                  Obx(() => commonController.Response.value?textediting.medium20(25.0, commonController.weather_location.value.location?.name ??'Search Your Location',
                       ColorUtils.whiteColor.withOpacity(0.9),
-                      TextAlign.center)),
+                      TextAlign.center):textediting.medium20(20.0, 'No Matched Location Found',
+                      ColorUtils.whiteColor.withOpacity(0.9),
+                      TextAlign.center))
                 ],
               )),
         ),
@@ -131,7 +133,7 @@ class Homepage extends StatelessWidget {
                 () => SizedBox(
                   height: Get.height * 0.6652,
                   width: Get.width,
-                  child: ListView.builder(
+                  child: commonController.Response.value?ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: commonController.weather_location.value
                               .forecast?.forecastday!.length ??
@@ -223,7 +225,7 @@ class Homepage extends StatelessWidget {
                             ),
                           ],
                         );
-                      }),
+                      }):const SizedBox(),
                 ),
               )
             ],

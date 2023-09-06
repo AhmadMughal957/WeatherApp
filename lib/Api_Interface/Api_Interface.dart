@@ -10,21 +10,17 @@ class Api_Interface {
   CommonController commonController = Get.find<CommonController>();
 
   Future<int> Search_Weather(
-    String Location,
+    String location,
   ) async {
     final response = await http.get(
       Uri.parse(
-          "http://api.weatherapi.com/v1/forecast.json?key=7eb68f76325f4410b6073429230609&q=${Location}&days=5&aqi=no&alerts=no"),
+          "http://api.weatherapi.com/v1/forecast.json?key=7eb68f76325f4410b6073429230609&q=$location&days=5&aqi=no&alerts=no"),
     );
     if (response.statusCode == 400) {
-
-      commonController.weather_location.value = Weather_Location_model(
-
-      );
+      commonController.Response.value=false;
     }
     else if (response.statusCode == 200) {
-
-      print(response.statusCode);
+      commonController.Response.value=true;
       commonController.weather_location.value = Weather_Location_model.fromJson(jsonDecode(response.body));
     }
 
